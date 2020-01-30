@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <!--
+     ArcGIS API for JavaScript, https://js.arcgis.com
+     For more information about the widgets-editor-basic sample,
+     read the original sample description at developers.arcgis.com.
+     https://developers.arcgis.com/javascript/latest/sample-code/widgets-editor-basic/index.html
+     -->
+    <title>Hallandale Web Editing</title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.14/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.14/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      .esri-editor .esri-item-list__scroller {
+        max-height: 350px;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/WebMap",
+        "esri/views/MapView",
+        "esri/widgets/Editor"
+      ], function(WebMap, MapView, Editor) {
+        // Create a map from the referenced webmap item id
+        let webmap = new WebMap({
+          portalItem: {
+            id: "c923998f2dd6406ca87f54c4b1a69c0c"
+          }
+        });
+
+        let view = new MapView({
+          container: "viewDiv",
+          map: webmap
+        });
+
+        view.when(function() {
+          view.popup.autoOpenEnabled = false; //disable popups
+
+          // Create the Editor
+          let editor = new Editor({
+            view: view
+          });
+
+          // Add widget to top-right of the view
+          view.ui.add(editor, "top-right");
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+    <div id="editorDiv"></div>
+  </body>
+</html>
